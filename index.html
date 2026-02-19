@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Online Quiz App</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <h1>Online Quiz Application</h1>
+
+    {% if score is not none %}
+        <h2>Your Score: {{ score }} / {{ questions|length }}</h2>
+        <a href="/">Try Again</a>
+    {% else %}
+        <form method="POST">
+            {% for question in questions %}
+                <div class="question-box">
+                    <h3>{{ question.question }}</h3>
+
+                    {% for option in question.options %}
+                        <label>
+                            <input type="radio" name="question-{{ loop.parent.index0 }}" value="{{ option }}" required>
+                            {{ option }}
+                        </label><br>
+                    {% endfor %}
+                </div>
+            {% endfor %}
+
+            <button type="submit">Submit Quiz</button>
+        </form>
+    {% endif %}
+
+</body>
+</html>
